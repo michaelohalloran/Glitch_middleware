@@ -67,10 +67,13 @@ function gateKeeper(req, res, next) {
   // your code should replace the line below
   let header = req.get('x-username-and-password');
   let userCredObj = queryString.parse(header); //returns object with username and password key/values
-  console.log(userCredObj); //this works
-  USERS.find(function(object) {
-    if(object.userName === userCredObj.user && object.password === userCredObj.pass) {
-      req.user = object;
+  console.log(userCredObj); //this works, returns { pass: 'password', user: 'joeschmoe@business.com' }
+  USERS.find(function(matchedUser) {
+    if(matchedUser.userName === userCredObj.user && matchedUser.password === userCredObj.pass) {
+      console.log(matchedUser);
+      console.log(matchedUser.password === userCredObj.pass); //returns true
+      req.user = matchedUser;
+      console.log(req.user); //this works too
     }
     return req.user;
   });  
