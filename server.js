@@ -65,6 +65,11 @@ const USERS = [
 //     (aka, `req.user = matchedUser`)
 function gateKeeper(req, res, next) {
   // your code should replace the line below
+  let header = req.get('x-username-and-password');
+  let userCredObj = queryString.parse(header); //returns object with username and password key/values
+  USERS.find(function(object) {
+  });  
+  
   next();
 }
 
