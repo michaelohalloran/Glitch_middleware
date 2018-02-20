@@ -75,7 +75,6 @@ function gateKeeper(req, res, next) {
   next();
 }
 
-// Add the middleware to your app!
 
 app.use(gateKeeper);
 
@@ -96,6 +95,8 @@ app.get("/api/users/me", (req, res) => {
   return res.json({firstName, lastName, id, userName, position});
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Your app is listening on port ${process.env.PORT}`);
+let port = 80;
+
+app.listen(port, () => {
+  console.log(`Your app is listening on port ${port}`);
 });
