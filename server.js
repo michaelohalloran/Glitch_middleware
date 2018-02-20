@@ -69,7 +69,7 @@ function gateKeeper(req, res, next) {
   let userCredObj = queryString.parse(header); //returns object with username and password key/values
   // console.log(userCredObj); //this works, returns { pass: 'password', user: 'joeschmoe@business.com' }
   req.user = USERS.find(function(user) {
-    return user.userName === userCredObj.user && user.password === userCredObj.pass
+    return user.userName === userCredObj.user && user.password === userCredObj.pass;
   });  
   
   next();
@@ -84,6 +84,7 @@ app.use(gateKeeper);
 // adds the user object to the request if valid credentials were supplied.
 app.get("/api/users/me", (req, res) => {
   // send an error message if no or wrong credentials sent
+  console.log(req.user);
   if (req.user === undefined) {
     return res.status(403).json({message: 'Must supply valid user credentials'});
   }
@@ -91,6 +92,7 @@ app.get("/api/users/me", (req, res) => {
   // from the user object. Notably, we're *not*
   // sending `password` or `isAdmin`.
   const {firstName, lastName, id, userName, position} = req.user;
+  //could use firstName: firstName, res has json method, pass json to it, creates string to be sent to client (because everything given to client is string)
   return res.json({firstName, lastName, id, userName, position});
 });
 
